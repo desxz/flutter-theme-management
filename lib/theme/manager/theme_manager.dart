@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../types/theme_blue.dart';
 import '../types/theme_green.dart';
@@ -6,6 +7,12 @@ import '../types/theme_orange.dart';
 import 'interface_theme_manager.dart';
 
 enum ThemeEnum { GREEN, ORANGE, BLUE }
+
+extension ThemeContextExtension on BuildContext {
+  ThemeData? get theme => this
+      .watch<ThemeManager>()
+      .generateTheme(this.watch<ThemeManager>().currentTheme!);
+}
 
 class ThemeManager extends ChangeNotifier implements IThemeManager {
   static ThemeManager? _instance;
